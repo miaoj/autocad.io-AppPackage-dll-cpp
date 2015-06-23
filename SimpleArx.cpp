@@ -40,15 +40,20 @@ void test()
 {
 	try
 	{
+        acutPrintf(_T("SimpleArx starts.\n"));
+
         // Read the parameter file name and output folder name.
 		ACHAR szFile[128] = _T("");
 		ACHAR szFolder[128] = _T("");
-		int res = acedGetString(1, _T("Specify parameter file: "), szFile);
+        int res = acedGetString(1, _T("Specify parameter file: "), szFile);
 		if(res != RTNORM)
 			return;
 		res = acedGetString(1, _T("Specify output sub-folder name: "), szFolder);
 		if(res != RTNORM)
 			return;
+
+        acutPrintf(_T("The parameter file is: %s\n"), szFile);
+        acutPrintf(_T("The output sub-folder is: %s\n"), szFolder);
 
         // read and parse the parameter file (in Json format)
 		Json::Reader reader;
@@ -59,6 +64,9 @@ void test()
             return;
         Json::Value layerNames = root.get("ExtractLayerNames", layerNames);
         Json::Value blockNames = root.get("ExtractBlockNames", blockNames);
+
+        acutPrintf(_T("The ExtractLayerNames value is: %d\n"), layerNames.asBool());
+        acutPrintf(_T("The ExtractBlockNames value is: %d\n"), blockNames.asBool());
 
         // create the output folder.
         _wmkdir(szFolder);
@@ -90,6 +98,8 @@ void test()
             delete pLayerIter;
             layerTable.close();
             output.close();
+
+            acutPrintf(_T("The layer file is at: %s\n"), outputfile.c_str());
         }
 
         if(blockNames.asBool())
@@ -117,6 +127,8 @@ void test()
             delete pBlockIter;
             blockTable.close();
             output.close();
+
+            acutPrintf(_T("The block file is at: %s\n"), outputfile.c_str());
         }
 	}
 	catch(exception e)

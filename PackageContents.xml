@@ -4,7 +4,7 @@
     Version="1.0"
     ProductCode=""
     HelpFile=""
-    Name="MyTestPackage"
+    Name="SimpleArx"
     Description="AutoCAD.IO Test Package"
     Author="Jonathan Miao" >
 
@@ -20,11 +20,12 @@
             Platform="AutoCAD" />
         
         <ComponentEntry
-            AppName="MyTestPackage"
+            AppName="SimpleArx"
             ModuleName="./Contents/SimpleArx.arx"
             AppDescription="AutoCAD.IO c++ test app"
             LoadOnCommandInvocation="True"
             LoadOnAutoCADStartup="False"
+            AppType="Arx"
             >
             <Commands GroupName="SIMPLETEST">
                 <Command Global="TEST" Local="TEST" />
