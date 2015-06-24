@@ -58,13 +58,13 @@
       <TargetMachine Condition="'$(Platform)'=='x64'">MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">mkdir $(TargetDir)MyTestPackage.bundle
-mkdir $(TargetDir)MyTestPackage.bundle\Contents
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">mkdir $(TargetDir)SimpleArx.bundle
+mkdir $(TargetDir)SimpleArx.bundle\Contents
 copy zip.exe $(TargetDir)
-copy PackageContents.xml $(TargetDir)MyTestPackage.bundle
+copy PackageContents.xml $(TargetDir)SimpleArx.bundle
 cd $(TargetDir)
-copy SimpleArx.arx MyTestPackage.bundle\Contents
-zip -r package MyTestPackage.bundle
+copy SimpleArx.arx SimpleArx.bundle\Contents
+zip -r package SimpleArx.bundle
 
 </Command>
     </PostBuildEvent>
