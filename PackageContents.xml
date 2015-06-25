@@ -21,11 +21,11 @@
         
         <ComponentEntry
             AppName="SimpleArx"
-            ModuleName="./Contents/SimpleArx.arx"
+            ModuleName="./Contents/SimpleArx.crx"
             AppDescription="AutoCAD.IO c++ test app"
             LoadOnCommandInvocation="True"
             LoadOnAutoCADStartup="False"
-            AppType="Arx"
+            AppType="Crx"
             >
             <Commands GroupName="SIMPLETEST">
                 <Command Global="TEST" Local="TEST" />

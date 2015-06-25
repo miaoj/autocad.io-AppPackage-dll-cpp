@@ -43,25 +43,26 @@ void test()
         acutPrintf(_T("SimpleArx starts.\n"));
 
         // Read the parameter file name and output folder name.
-		ACHAR szFile[128] = _T("");
-		ACHAR szFolder[128] = _T("");
-        int res = acedGetString(1, _T("Specify parameter file: "), szFile);
-		if(res != RTNORM)
-			return;
-		res = acedGetString(1, _T("Specify output sub-folder name: "), szFolder);
+        ACHAR szString[256] = _T("");
+        int res = acedGetString(1, _T("Specify parameter file and sub-folder name: "), szString);
 		if(res != RTNORM)
 			return;
 
-        acutPrintf(_T("The parameter file is: %s\n"), szFile);
-        acutPrintf(_T("The output sub-folder is: %s\n"), szFolder);
+        // extract parameter file name and sub-folder name
+        AcString fullStr = szString;
+        int spaceSperatorIndex = fullStr.find(_T(" "));
+        AcString paramFileName = fullStr.substr(0, spaceSperatorIndex);
+        AcString outputFolderName = fullStr.substr(spaceSperatorIndex + 1, fullStr.length() - spaceSperatorIndex);
+        acutPrintf(_T("The parameter file name is: %s\n"), paramFileName);
+        acutPrintf(_T("The output sub-folder name is: %s\n"), outputFolderName);
 
         // read and parse the parameter file (in Json format)
 		Json::Reader reader;
 		Json::Value root;
-		ifstream inputFile(szFile);
+		ifstream inputFile(paramFileName);
 		bool parseresult = reader.parse(inputFile, root);
-        if(parseresult == false)
-            return;
+		if(parseresult == false)
+			return;
         Json::Value layerNames = root.get("ExtractLayerNames", layerNames);
         Json::Value blockNames = root.get("ExtractBlockNames", blockNames);
 
@@ -69,13 +70,13 @@ void test()
         acutPrintf(_T("The ExtractBlockNames value is: %d\n"), blockNames.asBool());
 
         // create the output folder.
-        _wmkdir(szFolder);
+        _wmkdir(outputFolderName);
 
         // extract layer and blocktable info.
         AcDbDatabase* db = acdbHostApplicationServices()->workingDatabase();
         if(layerNames.asBool())
         {
-            wstring outputfile = szFolder;
+            wstring outputfile = outputFolderName;
             outputfile.append(_T("\\layers.txt"));
             wofstream output (outputfile);
             AcDbSmartObjectPointer<AcDbLayerTable> layerTable( db->layerTableId(), AcDb::kForRead );
@@ -104,7 +105,7 @@ void test()
 
         if(blockNames.asBool())
         {
-            wstring outputfile = szFolder;
+            wstring outputfile = outputFolderName;
             outputfile.append(_T("\\blocks.txt"));
             wofstream output (outputfile);
             AcDbSmartObjectPointer<AcDbBlockTable> blockTable( db->blockTableId(), AcDb::kForRead );

@@ -22,7 +22,7 @@
     <ProjectGuid>{1076D21A-F8F0-4F6D-A04F-66DF3BBC3230}</ProjectGuid>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <SSIArxVersion>15</SSIArxVersion>
-    <ObjectARXPath>D:\BIN\MAIN\D64\D\RunRoot\Debug64\arxsdk</ObjectARXPath>
+    <ObjectARXPath>D:\BIN\RE\M1\D64\D\RunRoot\Debug64\arxsdk</ObjectARXPath>
     <PlatformToolset Condition="$(SSIArxVersion) &lt; 15">v100</PlatformToolset>
     <PlatformToolset Condition="$(SSIArxVersion) &gt;= 15">v110</PlatformToolset>
     <!-- MSBuildExtensionsPath64 is blank on 32 bit systems-->
@@ -38,6 +38,18 @@
     <Import Project="$(ObjectARXPath)\inc\arx.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetExt>.crx</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetExt>.crx</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetExt>.crx</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetExt>.crx</TargetExt>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <Midl>
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -63,10 +75,35 @@ mkdir $(TargetDir)SimpleArx.bundle\Contents
 copy zip.exe $(TargetDir)
 copy PackageContents.xml $(TargetDir)SimpleArx.bundle
 cd $(TargetDir)
-copy SimpleArx.arx SimpleArx.bundle\Contents
-zip -r package SimpleArx.bundle
-
-</Command>
+copy SimpleArx.crx SimpleArx.bundle\Contents
+zip -r package SimpleArx.bundle</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">mkdir $(TargetDir)SimpleArx.bundle
+mkdir $(TargetDir)SimpleArx.bundle\Contents
+copy zip.exe $(TargetDir)
+copy PackageContents.xml $(TargetDir)SimpleArx.bundle
+cd $(TargetDir)
+copy SimpleArx.crx SimpleArx.bundle\Contents
+zip -r package SimpleArx.bundle</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">mkdir $(TargetDir)SimpleArx.bundle
+mkdir $(TargetDir)SimpleArx.bundle\Contents
+copy zip.exe $(TargetDir)
+copy PackageContents.xml $(TargetDir)SimpleArx.bundle
+cd $(TargetDir)
+copy SimpleArx.crx SimpleArx.bundle\Contents
+zip -r package SimpleArx.bundle</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">mkdir $(TargetDir)SimpleArx.bundle
+mkdir $(TargetDir)SimpleArx.bundle\Contents
+copy zip.exe $(TargetDir)
+copy PackageContents.xml $(TargetDir)SimpleArx.bundle
+cd $(TargetDir)
+copy SimpleArx.crx SimpleArx.bundle\Contents
+zip -r package SimpleArx.bundle</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
