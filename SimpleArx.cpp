@@ -28,7 +28,6 @@
 
 #include "StdAfx.h"
 #include <dbobjptr2.h>
-#include "json\json.h"
 #include <fstream>
 #include <direct.h>
 
@@ -56,25 +55,15 @@ void test()
         acutPrintf(_T("The parameter file name is: %s\n"), paramFileName);
         acutPrintf(_T("The output sub-folder name is: %s\n"), outputFolderName);
 
-        // read and parse the parameter file (in Json format)
-		Json::Reader reader;
-		Json::Value root;
-		ifstream inputFile(paramFileName);
-		bool parseresult = reader.parse(inputFile, root);
-		if(parseresult == false)
-			return;
-        Json::Value layerNames = root.get("ExtractLayerNames", layerNames);
-        Json::Value blockNames = root.get("ExtractBlockNames", blockNames);
-
-        acutPrintf(_T("The ExtractLayerNames value is: %d\n"), layerNames.asBool());
-        acutPrintf(_T("The ExtractBlockNames value is: %d\n"), blockNames.asBool());
+        bool extractLayerNames = false;
+        bool ExtractBlockNames = false;
 
         // create the output folder.
         _wmkdir(outputFolderName);
 
         // extract layer and blocktable info.
         AcDbDatabase* db = acdbHostApplicationServices()->workingDatabase();
-        if(layerNames.asBool())
+        if(extractLayerNames)
         {
             wstring outputfile = outputFolderName;
             outputfile.append(_T("\\layers.txt"));
@@ -103,7 +92,7 @@ void test()
             acutPrintf(_T("The layer file is at: %s\n"), outputfile.c_str());
         }
 
-        if(blockNames.asBool())
+        if(ExtractBlockNames)
         {
             wstring outputfile = outputFolderName;
             outputfile.append(_T("\\blocks.txt"));

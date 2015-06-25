@@ -107,12 +107,9 @@ zip -r package SimpleArx.bundle</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="jsoncpp.cpp" />
     <ClCompile Include="SimpleArx.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="json\json-forwards.h" />
-    <ClInclude Include="json\json.h" />
     <ClInclude Include="StdAfx.h" />
   </ItemGroup>
   <ItemGroup>
