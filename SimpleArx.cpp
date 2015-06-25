@@ -30,8 +30,18 @@
 #include <dbobjptr2.h>
 #include <fstream>
 #include <direct.h>
+#include "rapidjson/document.h"
+#include "rapidjson/rapidjson.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include "rapidjson/reader.h"
+#include "rapidjson/prettywriter.h"
+#include "rapidjson/filereadstream.h"
+#include "rapidjson/filewritestream.h"
+#include "rapidjson/encodedstream.h"
 
 using namespace std;
+using namespace rapidjson;
 
 //**************************************************************
 void test()
@@ -55,8 +65,35 @@ void test()
         acutPrintf(_T("The parameter file name is: %s\n"), paramFileName);
         acutPrintf(_T("The output sub-folder name is: %s\n"), outputFolderName);
 
+        // Parse json file using rapidjson library -- check client code at https://github.com/miaoj/workflow-custom-activity-with-apppackage-autocad.io
+        // The WorkItem includes an inline json string as:
+        // Resource = @"data:application/json, "+ JsonConvert.SerializeObject(new CrxApp.Parameters { ExtractBlockNames = true, ExtractLayerNames = true })
+        // which will be saved into "params.json" file in UTF-16 format. 
+        // We parse the json file here using rapidjson library.
+        TCHAR cDir[MAX_PATH];
+        GetCurrentDirectory(MAX_PATH, cDir);
+        acutPrintf(_T("current search folder is: %s\n"), cDir);
+
+        FILE *fp;
         bool extractLayerNames = false;
         bool ExtractBlockNames = false;
+        try
+        {
+            _wfopen_s(&fp, _T("params.json"), _T("r"));
+            GenericReader<AutoUTF<unsigned>, UTF16<> > reader;     
+            char readBuffer[65536];
+            FileReadStream is(fp, readBuffer, sizeof(readBuffer));
+            AutoUTFInputStream<unsigned, FileReadStream> eis(is);
+            Document doc;
+            doc.ParseStream<AutoUTFInputStream<unsigned, FileReadStream>>(eis);
+            extractLayerNames = doc[("ExtractLayerNames")].GetBool();
+            ExtractBlockNames = doc[("ExtractBlockNames")].GetBool();
+            fclose(fp);
+        }
+        catch(exception e)
+        {
+            fclose(fp);
+        }
 
         // create the output folder.
         _wmkdir(outputFolderName);
