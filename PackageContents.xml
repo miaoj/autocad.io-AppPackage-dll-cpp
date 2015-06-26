@@ -4,7 +4,7 @@
     Version="1.0"
     ProductCode=""
     HelpFile=""
-    Name="SimpleArx"
+    Name="CrxApp"
     Description="AutoCAD.IO Test Package"
     Author="Jonathan Miao" >
 
@@ -20,8 +20,8 @@
             Platform="AutoCAD" />
         
         <ComponentEntry
-            AppName="SimpleArx"
-            ModuleName="./Contents/SimpleArx.crx"
+            AppName="CrxApp"
+            ModuleName="./Contents/CrxApp.crx"
             AppDescription="AutoCAD.IO c++ test app"
             LoadOnCommandInvocation="True"
             LoadOnAutoCADStartup="False"

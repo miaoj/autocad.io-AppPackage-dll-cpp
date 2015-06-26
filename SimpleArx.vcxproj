@@ -28,6 +28,7 @@
     <!-- MSBuildExtensionsPath64 is blank on 32 bit systems-->
     <MachineBitness Condition="'$(MSBuildExtensionsPath64)' != ''">x64</MachineBitness>
     <MachineBitness Condition="'$(MSBuildExtensionsPath64)' == ''">win32</MachineBitness>
+    <ProjectName>CrxApp</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
@@ -70,44 +71,44 @@
       <TargetMachine Condition="'$(Platform)'=='x64'">MachineX64</TargetMachine>
     </Link>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">mkdir $(TargetDir)SimpleArx.bundle
-mkdir $(TargetDir)SimpleArx.bundle\Contents
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">mkdir $(TargetDir)CrxApp.bundle
+mkdir $(TargetDir)CrxApp.bundle\Contents
 copy zip.exe $(TargetDir)
-copy PackageContents.xml $(TargetDir)SimpleArx.bundle
+copy PackageContents.xml $(TargetDir)CrxApp.bundle
 cd $(TargetDir)
-copy SimpleArx.crx SimpleArx.bundle\Contents
-zip -r package SimpleArx.bundle</Command>
+copy CrxApp.crx CrxApp.bundle\Contents
+zip -r package CrxApp.bundle</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">mkdir $(TargetDir)SimpleArx.bundle
-mkdir $(TargetDir)SimpleArx.bundle\Contents
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">mkdir $(TargetDir)CrxApp.bundle
+mkdir $(TargetDir)CrxApp.bundle\Contents
 copy zip.exe $(TargetDir)
-copy PackageContents.xml $(TargetDir)SimpleArx.bundle
+copy PackageContents.xml $(TargetDir)CrxApp.bundle
 cd $(TargetDir)
-copy SimpleArx.crx SimpleArx.bundle\Contents
-zip -r package SimpleArx.bundle</Command>
+copy CrxApp.crx CrxApp.bundle\Contents
+zip -r package CrxApp.bundle</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">mkdir $(TargetDir)SimpleArx.bundle
-mkdir $(TargetDir)SimpleArx.bundle\Contents
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">mkdir $(TargetDir)CrxApp.bundle
+mkdir $(TargetDir)CrxApp.bundle\Contents
 copy zip.exe $(TargetDir)
-copy PackageContents.xml $(TargetDir)SimpleArx.bundle
+copy PackageContents.xml $(TargetDir)CrxApp.bundle
 cd $(TargetDir)
-copy SimpleArx.crx SimpleArx.bundle\Contents
-zip -r package SimpleArx.bundle</Command>
+copy CrxApp.crx CrxApp.bundle\Contents
+zip -r package CrxApp.bundle</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">mkdir $(TargetDir)SimpleArx.bundle
-mkdir $(TargetDir)SimpleArx.bundle\Contents
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">mkdir $(TargetDir)CrxApp.bundle
+mkdir $(TargetDir)CrxApp.bundle\Contents
 copy zip.exe $(TargetDir)
-copy PackageContents.xml $(TargetDir)SimpleArx.bundle
+copy PackageContents.xml $(TargetDir)CrxApp.bundle
 cd $(TargetDir)
-copy SimpleArx.crx SimpleArx.bundle\Contents
-zip -r package SimpleArx.bundle</Command>
+copy CrxApp.crx CrxApp.bundle\Contents
+zip -r package CrxApp.bundle</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="SimpleArx.cpp" />
+    <ClCompile Include="CrxApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="rapidjson\allocators.h" />
