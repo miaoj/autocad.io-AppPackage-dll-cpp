@@ -62,24 +62,22 @@ void test()
         int spaceSperatorIndex = fullStr.find(_T(" "));
         AcString paramFileName = fullStr.substr(0, spaceSperatorIndex);
         AcString outputFolderName = fullStr.substr(spaceSperatorIndex + 1, fullStr.length() - spaceSperatorIndex);
-        acutPrintf(_T("The parameter file name is: %s\n"), paramFileName);
-        acutPrintf(_T("The output sub-folder name is: %s\n"), outputFolderName);
+        acutPrintf(_T("The parameter file name is: %s\n"), paramFileName.constPtr());
+        acutPrintf(_T("The output sub-folder name is: %s\n"), outputFolderName.constPtr());
+        ACHAR fullFileName[256];
+        acedFindFile(paramFileName.constPtr(), fullFileName);
 
         // Parse json file using rapidjson library -- check client code at https://github.com/miaoj/workflow-custom-activity-with-apppackage-autocad.io
         // The WorkItem includes an inline json string as:
         // Resource = @"data:application/json, "+ JsonConvert.SerializeObject(new CrxApp.Parameters { ExtractBlockNames = true, ExtractLayerNames = true })
         // which will be saved into "params.json" file in UTF-16 format. 
         // We parse the json file here using rapidjson library.
-        TCHAR cDir[MAX_PATH];
-        GetCurrentDirectory(MAX_PATH, cDir);
-        acutPrintf(_T("current search folder is: %s\n"), cDir);
-
         FILE *fp;
         bool extractLayerNames = false;
         bool ExtractBlockNames = false;
         try
         {
-            _wfopen_s(&fp, _T("params.json"), _T("r"));
+            _wfopen_s(&fp, fullFileName, _T("r"));
             GenericReader<AutoUTF<unsigned>, UTF16<> > reader;     
             char readBuffer[65536];
             FileReadStream is(fp, readBuffer, sizeof(readBuffer));

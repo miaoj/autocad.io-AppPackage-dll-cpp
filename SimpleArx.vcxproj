@@ -22,7 +22,7 @@
     <ProjectGuid>{1076D21A-F8F0-4F6D-A04F-66DF3BBC3230}</ProjectGuid>
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <SSIArxVersion>15</SSIArxVersion>
-    <ObjectARXPath>D:\BIN\RE\M1\D64\D\RunRoot\Debug64\arxsdk</ObjectARXPath>
+    <ObjectARXPath>C:\ObjectARX\2016</ObjectARXPath>
     <PlatformToolset Condition="$(SSIArxVersion) &lt; 15">v100</PlatformToolset>
     <PlatformToolset Condition="$(SSIArxVersion) &gt;= 15">v110</PlatformToolset>
     <!-- MSBuildExtensionsPath64 is blank on 32 bit systems-->
